@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ferro & Giz | Gerenciador de academia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="deslogado">
+  <div id="login">
+    <form id="formLogin" class="bloco">
+      <h1>Ferro &amp; Giz</h1>
+      <p class="muted">Entre com seu e-mail e senha.</p>
+      <label>E-mail <input type="email" name="email" required autocomplete="username"></label>
+      <label>Senha <input type="password" name="senha" required autocomplete="current-password"></label>
+      <p id="loginErro" class="aviso erro" role="alert"></p>
+      <button class="primario" type="submit">Entrar</button>
+      <button type="button" class="alt" id="irCadastro">Criar conta de aluno</button>
+      <div id="dicas" class="dicas">
+        <strong>Contas de exemplo</strong>
+        <span>Administrador: admin@ferro.com / admin123</span>
+        <span>Instrutor: paulo@ferro.com / instrutor123</span>
+        <span>Aluno: marina@aluno.com / aluno123</span>
+      </div>
+    </form>
+    <form id="formCadastro" class="bloco" hidden>
+      <h1>Criar conta</h1>
+      <p class="muted">Cadastro para alunos. Suas respostas ajudam o instrutor a montar o treino certo para você.</p>
+
+      <fieldset>
+        <legend>Seus dados</legend>
+        <label>Nome completo <input name="nome" required autocomplete="name"></label>
+        <label>CPF <input name="cpf" required inputmode="numeric" maxlength="14" data-mask="cpf" autocomplete="off" placeholder="000.000.000-00"></label>
+        <label>Telefone <input name="tel" type="tel" required maxlength="16" data-mask="tel" autocomplete="tel" placeholder="(11) 9 1234-5678"></label>
+        <label>Idade <input name="idade" type="number" min="12" max="100" required></label>
+        <label>Sexo
+          <select name="sexo"><option value="">Prefiro não informar</option><option>Feminino</option><option>Masculino</option><option>Outro</option></select>
+        </label>
+        <label>Peso (kg) <input name="peso" type="number" min="30" max="300" step="0.1" required></label>
+        <label>Altura (cm) <input name="altura" type="number" min="120" max="230" required></label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Seu objetivo</legend>
+        <label>Objetivo principal
+          <select name="objetivo" required>
+            <option>Emagrecer</option><option>Ganhar massa muscular</option><option>Ficar mais forte</option>
+            <option>Definir o corpo</option><option>Melhorar o condicionamento</option><option>Saúde e bem-estar</option><option>Reabilitação</option>
+          </select>
+        </label>
+        <label>Experiência com musculação
+          <select name="nivel"><option>Nunca treinei</option><option>Iniciante (até 6 meses)</option><option>Intermediário (6 meses a 2 anos)</option><option>Avançado (mais de 2 anos)</option></select>
+        </label>
+        <label>Quantos dias por semana você consegue treinar?
+          <select name="dias"><option>2</option><option>3</option><option selected>4</option><option>5</option><option>6</option></select>
+        </label>
+        <label>Tempo disponível por treino
+          <select name="tempo"><option value="30">30 minutos</option><option value="45">45 minutos</option><option value="60" selected>1 hora</option><option value="90">1 hora e 30 minutos</option></select>
+        </label>
+        <label>Como prefere dividir os treinos?
+          <select name="preferencia">
+            <option value="">Deixar o instrutor decidir</option><option value="AB">Treino A e B</option>
+            <option value="ABC">Treino A, B e C</option><option value="SEMANA">Um treino por dia, de segunda a sábado</option>
+          </select>
+        </label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Saúde</legend>
+        <label>Tem alguma lesão ou impedimento físico?
+          <select name="lesao"><option value="nao">Não</option><option value="sim">Sim</option></select>
+        </label>
+        <label>Qual? <input name="lesaoDetalhe" placeholder="Ex.: dor no joelho direito, hérnia de disco"></label>
+        <div class="checks">
+          <span class="muted">Marque se tiver alguma destas condições:</span>
+          <label><input type="checkbox" name="condicoes" value="Pressão alta"> Pressão alta</label>
+          <label><input type="checkbox" name="condicoes" value="Problema cardíaco"> Problema cardíaco</label>
+          <label><input type="checkbox" name="condicoes" value="Diabetes"> Diabetes</label>
+          <label><input type="checkbox" name="condicoes" value="Asma ou problema respiratório"> Asma ou problema respiratório</label>
+          <label><input type="checkbox" name="condicoes" value="Problema de coluna ou articulações"> Problema de coluna ou articulações</label>
+        </div>
+        <label>Medicamentos de uso contínuo (se houver) <input name="medicamentos"></label>
+        <label>Fez alguma cirurgia nos últimos 12 meses?
+          <select name="cirurgia"><option value="nao">Não</option><option value="sim">Sim</option></select>
+        </label>
+        <label>Algo mais que o instrutor deve saber? <textarea name="obs" rows="3"></textarea></label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Plano e acesso</legend>
+        <label>Plano <select name="plano" id="cadPlano"></select></label>
+        <label>E-mail <input type="email" name="email" required autocomplete="username"></label>
+        <label>Senha (mínimo 6 caracteres) <input type="password" name="senha" required minlength="6" autocomplete="new-password"></label>
+        <label>Repita a senha <input type="password" name="senha2" required minlength="6" autocomplete="new-password"></label>
+      </fieldset>
+
+      <p id="cadErro" class="aviso erro" role="alert"></p>
+      <button class="primario" type="submit">Criar conta</button>
+      <button type="button" class="alt" id="irLogin">Já tenho conta</button>
+    </form>
+  </div>
+
+  <aside class="sidebar">
+    <h1 class="logo">Ferro &amp; Giz</h1>
+    <nav id="nav">
+      <button data-view="painel" class="active">Painel</button>
+      <button data-view="alunos">Alunos</button>
+      <button data-view="pagamentos">Mensalidades</button>
+      <button data-view="checkin">Check-in</button>
+      <button data-view="risco">Risco de evasão</button>
+      <button data-view="minhaarea">Minha área</button>
+      <button data-view="agenda">Agenda de treino</button>
+      <button data-view="fichas">Fichas de treino</button>
+      <button data-view="equipe">Equipe</button>
+    </nav>
+    <div class="quem" id="quem"></div>
+    <button id="sair" class="link">Sair</button>
+    <button id="reset" class="link">Restaurar dados de exemplo</button>
+  </aside>
+
+  <main>
+    <header class="topo">
+      <h2 id="titulo">Painel</h2>
+      <span id="data" class="muted"></span>
+    </header>
+
+    <section id="painel" class="view active">
+      <div class="kpis" id="kpis"></div>
+      <div class="duas">
+        <div class="bloco">
+          <h3>Check-ins nos últimos 7 dias</h3>
+          <div class="barras" id="barras"></div>
+        </div>
+        <div class="bloco">
+          <h3>Alunos que mais precisam de atenção</h3>
+          <ul class="lista" id="topRisco"></ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="alunos" class="view">
+      <div class="barra-acoes">
+        <input type="search" id="busca" placeholder="Buscar por nome ou CPF">
+        <button class="primario" id="novoAluno">Novo aluno</button>
+      </div>
+      <div class="tabela-wrap"><table id="tabAlunos"></table></div>
+    </section>
+
+    <section id="pagamentos" class="view">
+      <div class="barra-acoes">
+        <select id="filtroPag">
+          <option value="todos">Todas</option>
+          <option value="atrasado">Atrasadas</option>
+          <option value="pendente">A vencer</option>
+          <option value="pago">Pagas</option>
+        </select>
+      </div>
+      <div class="tabela-wrap"><table id="tabPag"></table></div>
+    </section>
+
+    <section id="checkin" class="view">
+      <div class="bloco estreito">
+        <h3>Registrar entrada</h3>
+        <div class="barra-acoes">
+          <input type="text" id="idCheckin" placeholder="Matrícula, CPF ou nome">
+          <button class="primario" id="btnCheckin">Fazer check-in</button>
+        </div>
+        <p id="msgCheckin" class="aviso" role="status"></p>
+      </div>
+      <div class="bloco estreito">
+        <h3>Entradas de hoje</h3>
+        <ul class="lista" id="listaHoje"></ul>
+      </div>
+    </section>
+
+    <section id="agenda" class="view"><div id="agendaConteudo"></div></section>
+
+    <section id="fichas" class="view">
+      <p class="muted">Escolha um aluno para montar ou editar a ficha. As respostas do cadastro dele aparecem dentro da ficha.</p>
+      <div class="tabela-wrap"><table id="tabFichas"></table></div>
+    </section>
+
+    <section id="ficha" class="view"><div id="fichaConteudo"></div></section>
+
+    <section id="equipe" class="view">
+      <div class="barra-acoes">
+        <button class="primario" id="novaConta">Nova conta de equipe</button>
+      </div>
+      <div class="tabela-wrap"><table id="tabEquipe"></table></div>
+    </section>
+
+    <section id="minhaarea" class="view">
+      <div class="kpis" id="minhaKpis"></div>
+      <div class="bloco estreito">
+        <h3>Registrar minha entrada</h3>
+        <button class="primario" id="btnMeuCheckin">Fazer check-in</button>
+        <p id="msgMeu" class="aviso" role="status"></p>
+      </div>
+      <h3 class="sub">Minhas mensalidades</h3>
+      <div class="tabela-wrap"><table id="tabMinhas"></table></div>
+    </section>
+
+    <section id="risco" class="view">
+      <p class="muted">A pontuação combina dias sem treinar, queda na frequência e mensalidades em atraso.</p>
+      <div class="grade" id="gradeRisco"></div>
+    </section>
+  </main>
+
+  <dialog id="dlgAluno">
+    <form method="dialog" id="formAluno">
+      <h3>Novo aluno</h3>
+      <label>Nome completo <input name="nome" required></label>
+      <label>CPF <input name="cpf" required inputmode="numeric" maxlength="14" data-mask="cpf" autocomplete="off" placeholder="000.000.000-00"></label>
+      <label>Telefone <input name="tel" type="tel" required maxlength="16" data-mask="tel" autocomplete="off" placeholder="(11) 9 1234-5678"></label>
+      <label>Plano <select name="plano" id="selPlano"></select></label>
+      <div class="barra-acoes fim">
+        <button type="button" id="cancelar">Cancelar</button>
+        <button class="primario" type="submit">Salvar aluno</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="dlgEquipe">
+    <form method="dialog" id="formEquipe">
+      <h3>Nova conta de equipe</h3>
+      <label>Perfil
+        <select name="perfil">
+          <option value="instrutor">Instrutor</option>
+          <option value="admin">Administrador</option>
+        </select>
+      </label>
+      <label>Nome completo <input name="nome" required></label>
+      <label>E-mail <input type="email" name="email" required></label>
+      <label>Senha inicial (mínimo 6 caracteres) <input type="password" name="senha" required minlength="6" autocomplete="new-password"></label>
+      <div class="barra-acoes fim">
+        <button type="button" id="cancelarEq">Cancelar</button>
+        <button class="primario" type="submit">Criar conta</button>
+      </div>
+    </form>
+  </dialog>
+
+  <datalist id="listaEx"></datalist>
+
+  <div id="toast" role="status"></div>
+  <script src="script.js"></script>
+</body>
+</html>
